@@ -5,7 +5,7 @@ function AddNote() {
     const context = useContext(noteContext);
     const {addNote } = context;
 
-    const [note, setNote] = useState({title: "", description: "", tag: "default"})
+    const [note, setNote] = useState({title: "", description: "", tag: ""})
     const handleAdd = (e) =>{
         e.preventDefault()
         addNote(note.title, note.description, note.tag)
@@ -16,7 +16,7 @@ function AddNote() {
     }
     return (
         <div className='container my-3'>
-            <h1>Add a Note</h1>
+            <h1>Add Your Note</h1>
             <form>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
@@ -26,7 +26,11 @@ function AddNote() {
                     <label htmlFor="description" className="form-label">Description</label>
                     <input type="text" className="form-control" id="description" name='description' onChange={onChange}/>
                 </div>
-                <button type="submit" className="btn btn-primary" onClick={handleAdd}>Add</button>
+                <div className="mb-3">
+                    <label htmlFor="tag" className="form-label">Tag</label>
+                    <input type="text" className="form-control" id="tag" name='tag' onChange={onChange}/>
+                </div>
+                <button type="submit" className="btn btn-secondary" onClick={handleAdd}>Add Note</button>
             </form>
         </div>
     )

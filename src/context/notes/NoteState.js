@@ -6,7 +6,7 @@ const NoteState = (props) => {
   const notesInitial = []
   const [notes, setNotes] = useState(notesInitial);
 
-  //Add Note
+  //Fetch Notes
   const getNotes = async () => {
     //API Call
     const response = await fetch(`${baseURL}/api/notes/fetchallnotes`, {
@@ -17,8 +17,7 @@ const NoteState = (props) => {
       }
     });
     const json = await response.json();
-    console.log(json);
-
+    //console.log(json);
     setNotes(json)
   }
 
@@ -38,27 +37,22 @@ const NoteState = (props) => {
 
     console.log("New note added")
     const note = {
-      "_id": "675944b497a643498e54050256ba",
-      "user": "675824644e3088c90f34820107",
       "title": title,
       "description": description,
       "tag": tag,
-      "date": "2024-12-11T07:52:20.631Z",
-      "__v": 0
     }
     setNotes(notes.concat(note))
   }
 
   // Delete Note
   const deleteNote = async (id) => {
-    // Fetch Note
+    // API call
     const response = await fetch(`${baseURL}/api/notes/deletenote/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1ODI0NjQ0ZTMwODhjOTBmODIwMTA3In0sImlhdCI6MTczMzgyOTczMn0.w48fsrcz_WhKlsmxwdVyjrzY-X_gqCNrcbNIMF8-Iw0"
-      },
-      body: JSON.stringify(`Note with this ID has been deleted ${id}`)
+      }
     });
     const json = response.json();
     console.log(json);
@@ -73,14 +67,14 @@ const NoteState = (props) => {
   const editNote = async (id, title, description, tag) => {
     // API Call
     const response = await fetch(`${baseURL}/api/notes/updatenote/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1ODI0NjQ0ZTMwODhjOTBmODIwMTA3In0sImlhdCI6MTczMzgyOTczMn0.w48fsrcz_WhKlsmxwdVyjrzY-X_gqCNrcbNIMF8-Iw0"
       },
       body: JSON.stringify({title, description, tag})
     });
-    const json = response.json();
+    const json = await response.json();
     console.log(json);
 
     // Logic to Edit a Note
