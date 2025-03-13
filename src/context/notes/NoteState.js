@@ -13,11 +13,10 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1ODI0NjQ0ZTMwODhjOTBmODIwMTA3In0sImlhdCI6MTczMzgyOTczMn0.w48fsrcz_WhKlsmxwdVyjrzY-X_gqCNrcbNIMF8-Iw0"
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2YTZiZWI2NDJjMjVmZGFjMzFiYmQ5In0sImlhdCI6MTc0MTg1MzExM30.z4qRMbCPpEErGorRrUfYL6AtgC08EguMd-Q9xF9DQqk"
       }
     });
     const json = await response.json();
-    //console.log(json);
     setNotes(json)
   }
 
@@ -28,20 +27,12 @@ const NoteState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1ODI0NjQ0ZTMwODhjOTBmODIwMTA3In0sImlhdCI6MTczMzgyOTczMn0.w48fsrcz_WhKlsmxwdVyjrzY-X_gqCNrcbNIMF8-Iw0"
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2YTZiZWI2NDJjMjVmZGFjMzFiYmQ5In0sImlhdCI6MTc0MTg1MzExM30.z4qRMbCPpEErGorRrUfYL6AtgC08EguMd-Q9xF9DQqk"
       },
       body: JSON.stringify({title, description, tag})
     });
-    const json = response.json();
-    console.log(json);
-
-    console.log("New note added")
-    const note = {
-      "title": title,
-      "description": description,
-      "tag": tag,
-    }
-    setNotes(notes.concat(note))
+    const note = await response.json();
+    setNotes(notes.concat(note));
   }
 
   // Delete Note
@@ -51,14 +42,11 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1ODI0NjQ0ZTMwODhjOTBmODIwMTA3In0sImlhdCI6MTczMzgyOTczMn0.w48fsrcz_WhKlsmxwdVyjrzY-X_gqCNrcbNIMF8-Iw0"
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2YTZiZWI2NDJjMjVmZGFjMzFiYmQ5In0sImlhdCI6MTc0MTg1MzExM30.z4qRMbCPpEErGorRrUfYL6AtgC08EguMd-Q9xF9DQqk"
       }
     });
-    const json = response.json();
-    console.log(json);
+    response.json();
 
-    // Logic to Delete Note
-    console.log("Deleted note with id" + id)
     const newNote = notes.filter((note) => { return note._id !== id })
     setNotes(newNote)
   }
@@ -70,22 +58,24 @@ const NoteState = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1ODI0NjQ0ZTMwODhjOTBmODIwMTA3In0sImlhdCI6MTczMzgyOTczMn0.w48fsrcz_WhKlsmxwdVyjrzY-X_gqCNrcbNIMF8-Iw0"
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2YTZiZWI2NDJjMjVmZGFjMzFiYmQ5In0sImlhdCI6MTc0MTg1MzExM30.z4qRMbCPpEErGorRrUfYL6AtgC08EguMd-Q9xF9DQqk"
       },
       body: JSON.stringify({title, description, tag})
     });
-    const json = await response.json();
-    console.log(json);
+    response.json();
 
+    let newNote = JSON.parse(JSON.stringify(notes));
     // Logic to Edit a Note
     for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
-      if (notes._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+      const element = newNote[index];
+      if (element._id === id) {
+        newNote[index].title = title;
+        newNote[index].description = description;
+        newNote[index].tag = tag;
+        break;
       }
     }
+    setNotes(newNote);
 
   }
   return (
