@@ -31,7 +31,7 @@ function Notes() {
     }
 
     const handleClose = () => {
-        document.activeElement.blur(); // ✅ Removes focus from the button
+        document.activeElement.blur(); // Removes focus from the button
         const modal = document.getElementById("exampleModal");
         if (modal) {
             modal.classList.remove("show");
