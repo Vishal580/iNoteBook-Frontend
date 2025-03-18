@@ -3,7 +3,7 @@ import noteContext from "../context/notes/noteContext";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
 
-function Notes() {
+function Notes(props) {
     const context = useContext(noteContext);
     const { notes, getNotes, editNote } = context;
     const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" });
@@ -52,6 +52,8 @@ function Notes() {
         setTimeout(() => {
             refclose.current.click();
         }, 300);  // Add a slight delay to allow focus transition
+
+        props.showAlert("Note Updated Successfully", "success");
     
     };
     
@@ -92,14 +94,14 @@ function Notes() {
                 </div>
             </div>
 
-            <AddNote />
+            <AddNote showAlert={props.showAlert}/>
             <div className="row my-3">
                 <h1>Your Notes</h1>
                 <div className="container mx-2">
                     {notes.length === 0 && "No notes to display"}
                 </div>
                 {notes.map((note) => {
-                    return <NoteItem key={note._id} updateNote={updateNote} note={note} />;
+                    return <NoteItem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />;
                 })}
             </div>
         </>
