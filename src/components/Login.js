@@ -34,9 +34,10 @@ const Login = (props) => {
     }
 
     return (
-        <div>
+        <div className='container mt-3'>
+            <h2 className='my-3'>Login to continue to iNoteBook</h2>
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
+                <div className="my-3">
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input type="email" className="form-control" name="email" value={credentials.email} id="email" onChange={onChange} placeholder="Enter your Email"/>
                 </div>
