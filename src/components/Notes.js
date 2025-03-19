@@ -85,7 +85,7 @@ function Notes(props) {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="edescription" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="edescription" name='edescription' value={note.edescription} onChange={onChange} minLength={5} required/>
+                                    <textarea type="text" className="form-control" id="edescription" name='edescription' value={note.edescription} onChange={onChange} minLength={5} required/>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="etag" className="form-label">Tag</label>
@@ -102,14 +102,16 @@ function Notes(props) {
             </div>
 
             <AddNote showAlert={props.showAlert}/>
-            <div className="row my-3">
+            <div className="container row my-3">
                 <h1>Your Notes</h1>
-                <div className="container mx-2">
+                <div className="container row mx-2">
                     {notes.length === 0 && "No notes to display"}
                 </div>
+                <div className="card-container">
                 {notes.map((note) => {
                     return <NoteItem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />;
                 })}
+                </div>
             </div>
         </>
     );

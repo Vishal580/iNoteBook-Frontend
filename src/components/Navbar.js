@@ -4,7 +4,7 @@ import {Link, useNavigate, useLocation} from "react-router-dom";
 function Navbar() {
     let location = useLocation();
     let navigate = useNavigate();
-    
+
     useEffect(() => {
         // console.log(location.pathname);
     }, [location]);
@@ -23,9 +23,9 @@ function Navbar() {
             </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
+                        {(localStorage.getItem('token'))?(<li className="nav-item">
                         <Link className={`nav-link ${location.pathname==="/"?"active":""}`} aria-current="page" to="/">Home</Link>
-                        </li>
+                        </li>):""}
                         <li className="nav-item">
                         <Link className={`nav-link ${location.pathname==="/about"?"active":""}`} to="/about">About</Link>
                         </li>

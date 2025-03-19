@@ -9,7 +9,7 @@ const Signup = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (credentials.password !== credentials.cpassword) {
-      alert("Passwords do not match");
+      props.showAlert("Passwords do not match", "danger");
       return;
     }
     const response = await fetch('http://localhost:5000/api/auth/createuser', {
@@ -20,7 +20,7 @@ const Signup = (props) => {
       body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password })
     });
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
 
     // Redirect to Login Page
     if (json.success) {
